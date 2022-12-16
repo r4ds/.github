@@ -2,7 +2,7 @@ on:
   workflow_call:
 
 jobs:
-  pr_check_book:
+  render_club_pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
