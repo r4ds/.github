@@ -1,6 +1,5 @@
 jobs:
-  bookdown:
-    name: pr_check_book
+  pr_check_book:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
