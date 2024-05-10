@@ -1,10 +1,9 @@
 on:
   workflow_call:
-
-inputs:
-  extra-repositories:
-    description: 'One or more extra CRAN-like repositories to include in the `repos` global option'
-    default: ''
+    inputs:
+      extra-repositories:
+        description: 'One or more extra CRAN-like repositories to include in the `repos` global option'
+        default: ''
 
 jobs:
   render_book:
