@@ -1,3 +1,5 @@
+name: Render Quarto poject as book and slides
+
 on:
   workflow_call:
     inputs:
@@ -7,7 +9,7 @@ on:
         type: string
 
 jobs:
-  render_book:
+  render-quarto:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,9 +17,19 @@ jobs:
         with:
           r-version: 'release'
           extra-repositories: ${{ inputs.extra-repositories }}
-      - uses: r-lib/actions/setup-pandoc@v2
+      # Installs Quarto if repository contains at least one `.qmd` file
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 1
-      - name: Render Book
-        run: Rscript -e 'bookdown::render_book("index.Rmd")'
+      - name: Render Quarto book
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: book
+      - name: Render Quarto revealjs slides
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: slides
+      - name: Create Quarto artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _book/
